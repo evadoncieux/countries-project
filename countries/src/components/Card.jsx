@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ countries }) => {
     return (
-        <div className="wrapper">
+        <div className="grid-wrapper">
         {countries.map((country) => {
                 return (
                     <div key={country.cca3} className="country-card">
