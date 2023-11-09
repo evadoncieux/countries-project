@@ -1,25 +1,35 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({ countries }) => {
     return (
         <div className="card">
-            <div className="flag">
-                {" "}
-                {/* placeholder for the img from the api */}
-            </div>
+        {countries.map((country) => {
+                return (
+                    <div key={country.cca3} className="country-info">
+                        <img
+                            src={country.flags.png}
+                            alt={country.name.common}
+                            className="flag"
+                        />
 
-            <div className="country-infos">
-                <h2>Country name</h2>
-                <p>
-                    <span className="info-title">Population: </span>68,000,000
-                </p>
-                <p>
-                    <span className="info-title">Region: </span>Europe
-                </p>
-                <p>
-                    <span className="info-title">Capital: </span>Paris
-                </p>
-            </div>
+                        <div className="country-content">
+                        <h3>{country.name.common}</h3>
+                        <p>
+                            <span className="info-title">Population: </span>
+                            {country.population}
+                        </p>
+                        <p>
+                            <span className="info-title">Region: </span>
+                            {country.region}
+                        </p>
+                        <p>
+                            <span className="info-title">Capital: </span>
+                            {country.capital && country.capital[0]}
+                        </p>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 };
