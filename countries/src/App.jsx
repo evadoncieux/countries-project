@@ -1,16 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import React, { useState, useEffect } from 'react';
+import { Nav } from "./components/Nav.jsx";
+import { Card } from "./components/Card.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState(null);
 
-  return (
-    <>
-      
-    </>
-  )
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error));
+  }, []);
+  
+  
+    return (
+        <div>
+            <Nav />
+            <Card />
+
+        </div>
+    );
 }
 
-export default App
+export default App;
