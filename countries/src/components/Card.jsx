@@ -2,17 +2,17 @@ import React from "react";
 
 const Card = ({ countries }) => {
     return (
-        <div className="card">
+        <div className="wrapper">
         {countries.map((country) => {
                 return (
-                    <div key={country.cca3} className="country-info">
+                    <div key={country.cca3} className="country-card">
                         <img
                             src={country.flags.png}
                             alt={country.name.common}
                             className="flag"
                         />
 
-                        <div className="country-content">
+                        <div className="country-info">
                         <h3>{country.name.common}</h3>
                         <p>
                             <span className="info-title">Population: </span>
