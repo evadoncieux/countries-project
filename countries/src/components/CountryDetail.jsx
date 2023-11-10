@@ -6,12 +6,13 @@ const CountryDetail = ({ country }) => {
 
     console.log(country);
 
-    const { languages, currencies, borders } = country;
-
     if (!country) {
         return <div>Country not found</div>
     }
+    
+    console.log(country);
 
+    const { languages, currencies, borders } = country;
     const languageNames = languages
         ? Object.keys(languages).map((language) => language)
         : [];
