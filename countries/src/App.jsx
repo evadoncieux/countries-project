@@ -35,18 +35,13 @@ function App() {
     }, []);
 
     return (
-        // <Router>
             <Routes>
-                {/* <Route path="/"
-                    render={() => <Home />}
-                /> */}
                 <Route path='/' element={<CountryGrid countries={countries} />} />
                 <Route
-                    path="/detail/:countryName"
+                    path="/:countryName"
                     render={(props) => <CountryDetail {...props} />}
                 />
             </Routes>
-        // </Router>
     );
 }
 

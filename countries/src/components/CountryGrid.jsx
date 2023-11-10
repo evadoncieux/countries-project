@@ -37,7 +37,7 @@ class CountryGrid extends Component {
                     {countries.map((country) => (
                         <Link
                             key={country.cca3}
-                            to={`/detail/${country.name.common}`}>
+                            to={`/${country.name.common.split(' ').join('-')}`}>
                             <div key={country.cca3} className="country-card">
                                 <img
                                     src={country.flags.png}

@@ -1,14 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-const CountryDetail = ({ countries }) => {
-    
+const CountryDetail = ({ countries }) => {    
     const { countryName } = useParams();
     const country = countries.find((c) => c.name.common === countryName);
 
-    const { languages } = country || { languages: {} };
-    const { currencies } = country || { currencies: {} };
-    const { borders } = country || { borders: {} };
+    if (!country) {
+        return <div>Country not found</div>
+    }
+
+    // const { languages } = country || { languages: {} };
+    // const { currencies } = country || { currencies: {} };
+    // const { borders } = country || { borders: {} };
+    const { languages, currencies, borders } = country;
 
     const languageNames = languages
         ? Object.keys(languages).map((language) => language)
@@ -16,8 +20,6 @@ const CountryDetail = ({ countries }) => {
 
     return (
         <div className="wrapper-detail">
-            {country.map((country) => {
-                return (
                     <div key={country.cca3} className="country-detail">
                         <div className="left">
                             <img
@@ -122,7 +124,6 @@ const CountryDetail = ({ countries }) => {
                         </div>
                     </div>
                 );
-            })}
         </div>
     );
 };
