@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card.jsx";
+import Card from "./CountryGrid.jsx";
 
 function SearchList({ filteredCountries }) {
     const filtered = filteredCountries.map((country) => (

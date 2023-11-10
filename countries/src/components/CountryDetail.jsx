@@ -1,21 +1,22 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
-const Detail = ({ countries }) => {
-    const { languages } = countries || { languages: {} };
-    const { currencies } = countries || { currencies: {} };
-    // borders is ok
-    const { borders } = countries || { borders: {} };
+const CountryDetail = ({ countries }) => {
+    
+    const { countryName } = useParams();
+    const country = countries.find((c) => c.name.common === countryName);
+
+    const { languages } = country || { languages: {} };
+    const { currencies } = country || { currencies: {} };
+    const { borders } = country || { borders: {} };
 
     const languageNames = languages
         ? Object.keys(languages).map((language) => language)
         : [];
-    // console.log(languages);
-    // console.log(languageNames);
 
     return (
-        
         <div className="wrapper-detail">
-            {countries.map((country) => {
+            {country.map((country) => {
                 return (
                     <div key={country.cca3} className="country-detail">
                         <div className="left">
@@ -98,7 +99,7 @@ const Detail = ({ countries }) => {
                                 </div>
                                 <div>
                                     <span className="info-title">
-                                        Border Countries:{" "}
+                                        Border country:{" "}
                                         <span className="todo">
                                             (à remplacer par les noms de pays)
                                         </span>
@@ -114,7 +115,7 @@ const Detail = ({ countries }) => {
                                             )}
                                         </ul>
                                     ) : (
-                                        <p>No border countries available</p>
+                                        <p>No border country available</p>
                                     )}
                                 </div>
                             </div>
@@ -126,4 +127,4 @@ const Detail = ({ countries }) => {
     );
 };
 
-export { Detail };
+export { CountryDetail };
