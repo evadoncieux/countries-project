@@ -13,6 +13,7 @@ const Detail = ({ countries }) => {
     // console.log(languageNames);
 
     return (
+        
         <div className="wrapper-detail">
             {countries.map((country) => {
                 return (
