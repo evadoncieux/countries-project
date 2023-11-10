@@ -16,11 +16,29 @@ function App() {
 
     useEffect(() => {
         const fetchCountriesData = async () => {
+        const fetchCountriesData = async () => {
             try {
                 const countriesData = await fetchCountries();
 
                 if (Array.isArray(countriesData)) {
                     setCountries(countriesData);
+                } else {
+                    console.log("Invalid countries data during fetch:");
+                }
+            } catch (error) {
+                console.log("Error fetching countries data");
+            }
+        };
+        fetchCountriesData();
+    }, []);
+
+    useEffect(() => {
+        const fetchCountryData = async () => {
+            try {
+                const countryData = await fetchCountry();
+
+                if (countryData) {
+                    setCountry(countryData);
                 } else {
                     console.log("Invalid countries data during fetch:");
                 }
@@ -47,7 +65,7 @@ function App() {
             }
         };
         fetchCountryData();
-    }, []);
+    }, []); // Empty dependency array to run only once
 
     return (
         <Routes>
