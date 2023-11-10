@@ -64,7 +64,7 @@ function App() {
             }
         };
         fetchCountryData();
-    }, []); // Empty dependency array to run only once
+    }, []);
 
     return (
         <Routes>

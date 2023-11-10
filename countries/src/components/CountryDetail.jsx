@@ -4,6 +4,10 @@ import { useParams } from "react-router-dom";
 const CountryDetail = ({ country }) => {    
     const { countryName } = useParams();
 
+    console.log(country);
+
+    const { languages, currencies, borders } = country;
+
     if (!country) {
         return <div>Country not found</div>
     }
