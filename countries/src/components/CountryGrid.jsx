@@ -18,11 +18,6 @@ class CountryGrid extends Component {
         }
     }
 
-    openDetails(countryName) {
-        window.location = `/${countryName}`;
-        console.log(`Open details for ${countryName}`);
-    }
-
     render() {
         const { countries } = this.props;
 
@@ -37,7 +32,7 @@ class CountryGrid extends Component {
                     {countries.map((country) => (
                         <Link
                             key={country.cca3}
-                            to={`/${country.name.common.split(' ').join('-')}`}>
+                            to={`/details/${country.name.common.split(' ').join('-')}`}>
                             <div key={country.cca3} className="country-card">
                                 <img
                                     src={country.flags.png}

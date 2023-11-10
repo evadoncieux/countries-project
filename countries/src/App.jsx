@@ -38,7 +38,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<CountryGrid countries={countries} />} />
                 <Route
-                    path="/:countryName"
+                    path="/detail/:countryName"
                     render={(props) => <CountryDetail {...props} />}
                 />
             </Routes>
