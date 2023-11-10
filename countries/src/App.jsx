@@ -16,7 +16,6 @@ function App() {
 
     useEffect(() => {
         const fetchCountriesData = async () => {
-        const fetchCountriesData = async () => {
             try {
                 const countriesData = await fetchCountries();
 
@@ -46,7 +45,7 @@ function App() {
                 console.log("Error fetching countries data");
             }
         };
-        fetchCountriesData();
+        fetchCountryData();
     }, []);
 
     useEffect(() => {
