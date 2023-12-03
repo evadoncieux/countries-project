@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { SearchList } from "./SearchList.jsx";
 import Scroll from "./Scroll.jsx";
 
@@ -56,7 +56,7 @@ class Search extends Component {
                         onChange={handleChange}
                     />
                 </div>
-                {this.searchList()} {/* Call the function using this */}
+                {this.searchList()}
             </div>
         );
     }

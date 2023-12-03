@@ -1,70 +1,59 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
-import { fetchCountries, fetchCountry } from "../services/fetchServices.js";
+import {Routes, Route, useParams, json} from "react-router-dom";
+import {fetchCountries, fetchCountry} from "../services/fetchServices.js";
 
-import { Home } from "./components/Home.jsx";
-import { CountryDetail } from "./components/CountryDetail.jsx";
-import { Nav } from "./components/Nav.jsx";
-import { Filter } from "./components/Filter.jsx";
+import {CountryDetail} from "./components/CountryDetail.jsx";
+import {Nav} from "./components/Nav.jsx";
+import {Filter} from "./components/Filter.jsx";
 import CountryGrid from "./components/CountryGrid.jsx";
 import Search from "./components/Search.jsx";
+import {useEffect, useState} from 'react';
 
 function App() {
-    const [countries, setCountries] = useState(null);
-    const { countryName } = useParams();
-    // const [country, setCountry] = useState(null);
+	const [countries, setCountries] = useState(null);
+	const {countryName} = useParams();
 
-    useEffect(() => {
-        const fetchCountriesData = async () => {
-            try {
-                const countriesData = await fetchCountries();
+	useEffect(() => {
+		const fetchCountriesData = async () => {
+			try {
+				const countriesData = await fetchCountries();
 
-                if (Array.isArray(countriesData)) {
-                    setCountries(countriesData);
-                } else {
-                    console.log("Invalid countries data during fetch:");
-                }
-            } catch (error) {
-                console.log("Error fetching countries data");
-            }
-        };
-        fetchCountriesData();
-    }, []);
+				if (Array.isArray(countriesData)) {
+					setCountries(countriesData);
+				} else {
+					console.log("Invalid countries data during fetch:");
+				}
+			} catch (error) {
+				console.log("Error fetching countries data");
+			}
+		};
+		fetchCountriesData().then(r => json(r));
+	}, []);
 
-    const country = fetchCountry(countryName);
+	const country = fetchCountry(countryName);
 
-//     useEffect(() => {
-//         const fetchCountryData = async () => {
-//             try {
-//                 const countryData = await fetchCountry();
-// 
-//                 if (countryData) {
-//                     setCountry(countryData);
-//                     console.log("country data is");
-//                     console.log(countryData);
-//                 } else {
-//                     console.log("Invalid country data:");
-//                 }
-//             } catch (error) {
-//                 console.log("Error fetching country data");
-//                 console.log(error);
-//             }
-//         };
-//         fetchCountryData();
-//     }, []);
+	return (
+		<div>
+			<div>
+				<Nav/>
+				{/*<Filter countries={countries}/>*/}
+				{/*<Search countries={countries}/>*/}
+			</div>
+			<div>
 
-    return (
-        <Routes>
-            <Route 
-                path="/" 
-                element={<CountryGrid countries={countries} />} />
-            <Route
-                path="/details/:countryName"
-                element={<CountryDetail country={country} />}
-            />
-        </Routes>
-    );
+
+				<Routes>
+					<Route
+						path="/"
+						element={<CountryGrid countries={countries}/>}/>
+					<Route
+						path="/details/:countryName"
+						element={<CountryDetail country={country}/>}
+					/>
+				</Routes>
+			</div>
+		</div>
+	);
 }
 
 export default App;
