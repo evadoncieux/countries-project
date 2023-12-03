@@ -1,41 +1,49 @@
+// noinspection UnnecessaryLocalVariableJS
+
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import {useState, useEffect, Component} from "react";
 
-const fetchCountries = async () => {
-  const url = 'https://restcountries.com/v3.1/all';
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log('Error fetching countries in the fetchServices');
-    throw error;
+class FetchData extends Component {
+  constructor() {
+    super();
   }
-};
 
+  fetchCountries = async () => {
+    const url = 'https://restcountries.com/v3.1/all';
 
-const fetchCountry = (name) => {
-  const [country, setCountry] = useState(null);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('Error fetching countries in the fetchServices');
+      throw error;
+    }
+  };
 
-  useEffect(() => {
-    const fetchCountryData = async () => {
-      try {
-        const response = await fetch(
-          `https://restcountries.com/v3.1/name/${name}`
-        );
-        const data = await response.json();
-        setCountry(data);
-      } catch (error) {
-        console.error("Error fetching country data:", error);
-      }
-    };
+  fetchCountry = (name) => {
+    const [country, setCountry] = useState(null);
 
-    fetchCountryData();
-  }, [name]);
+    useEffect(() => {
+      const fetchCountryData = async () => {
+        try {
+          const response = await fetch(
+              `https://restcountries.com/v3.1/name/${name}`
+          );
+          const data = await response.json();
+          setCountry(data);
+        } catch (error) {
+          console.error("Error fetching country data:", error);
+        }
+      };
 
-  return country;
-};
+      fetchCountryData();
+    }, [name]);
+
+    return country;
+  };
+}
+
 
 
 // const fetchCountry = async () => {

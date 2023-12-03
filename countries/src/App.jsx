@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Routes, Route, useParams } from "react-router-dom";
 import { fetchCountries, fetchCountry } from "../services/fetchServices.js";
 
 import { Home } from "./components/Home.jsx";
@@ -18,7 +18,7 @@ function App() {
     useEffect(() => {
         const fetchCountriesData = async () => {
             try {
-                const countriesData = await fetchCountries();
+                const countriesData = await fetchData->fetchCountries();
 
                 if (Array.isArray(countriesData)) {
                     setCountries(countriesData);
@@ -29,7 +29,8 @@ function App() {
                 console.log("Error fetching countries data");
             }
         };
-        fetchCountriesData();
+        fetchCountriesData()
+            .then();
     }, []);
 
     const country = fetchCountry(countryName);

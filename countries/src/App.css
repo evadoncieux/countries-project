@@ -8,17 +8,17 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
-body {
-  background-color: var(--very-dark-blue);
-}
-
 :root {
   --dark-blue: hsl(209, 23%, 22%);
-  --very-dark-blue-bg: hsl(207, 26%, 17%)
-  --very-dark-blue-txt: hsl(200, 15%, 8%)
-  --dark-gray: hsl(0, 0%, 52%)
-  --very-light-gray: hsl(0, 0%, 98%)
+  --very-dark-blue-bg: hsl(207, 26%, 17%);
+  --very-dark-blue-txt: hsl(200, 15%, 8%);
+  --dark-gray: hsl(0, 0%, 52%);
+  --very-light-gray: hsl(0, 0%, 98%);
   --white: hsl(0, 0%, 100%)
+}
+
+body {
+  background-color: var(--very-dark-blue-bg);
 }
 
 p {
@@ -107,7 +107,7 @@ p {
 .flag-card {
   width: 264px;
   height: 160px;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0 0;
   object-fit: cover;
   object-position: 50% 50%;
 }
@@ -124,7 +124,7 @@ p {
   text-align: left;
   width: 264px;
   height: 336px;
-  border-radius: 0px 0px 5px 5px;
+  border-radius: 0 0 5px 5px;
   margin: 1rem;
   gap: 1rem;
   background-color: var(--dark-blue);
@@ -153,7 +153,7 @@ p {
   display: inline-block;
   padding: 0.3rem;
   margin: 0.5rem;
-  border: 1px solid gray;
+  border: 1px solid rgb(128, 128, 128);
   border-radius: 5px;
 }
 

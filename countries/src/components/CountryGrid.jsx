@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {Component} from 'react';
 
 class CountryGrid extends Component {
     constructor(props) {
@@ -10,6 +10,7 @@ class CountryGrid extends Component {
     }
 
     componentDidMount() {
+        // eslint-disable-next-line react/prop-types
         const { countries } = this.props;
 
         if (!countries || !Array.isArray(countries)) {
@@ -19,6 +20,7 @@ class CountryGrid extends Component {
     }
 
     render() {
+        // eslint-disable-next-line react/prop-types
         const { countries } = this.props;
 
         if (!countries) {
@@ -29,6 +31,7 @@ class CountryGrid extends Component {
         return (
             <div className="card-display">
                 <div className="wrapper-card">
+                    {/* eslint-disable-next-line react/prop-types */}
                     {countries.map((country) => (
                         <Link
                             key={country.cca3}
