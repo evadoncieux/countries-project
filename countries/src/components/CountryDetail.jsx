@@ -114,7 +114,6 @@ const CountryDetail = ({country}) => {
 					</div>
 				</div>
 			</div>
-			);
 		</div>
 	);
 };
@@ -133,7 +132,6 @@ CountryDetail.propTypes = {
 		flags: PropTypes.shape({
 			png: PropTypes.string,
 		}),
-//      flags: PropTypes.arrayOf(PropTypes.string),
 		region: PropTypes.string,
 		subregion: PropTypes.string,
 		population: PropTypes.number,

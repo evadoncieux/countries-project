@@ -11,7 +11,7 @@ class Search extends Component {
     }
 
     searchList = () => {
-        const { searchField } = this.state;
+        // const { searchField } = this.state;
 
         return (
                 <SearchList filteredCountries={this.filterCountries()} />

@@ -1,66 +1,49 @@
-import { Link } from "react-router-dom";
-import { PropTypes } from 'prop-types';
+import axios from "axios";
+import { PropTypes } from "prop-types";
+import { useEffect, useState } from "react";
+import CountryCard from "./CountryCard.jsx";
 
-const CountryGrid = ({countries}) => {
+const CountryGrid = () => {
+    const [data, setData] = useState([]);
 
-        return (
-            <div className="card-display">
-                <div className="wrapper-card">
-                    {countries.map((country) => (
-                        <Link
-                            key={country.cca3}
-                            to={`/details/${country.name.common.split(' ').join('-')}`}>
-                            <div key={country.cca3} className="country-card">
-                                <img
-                                    src={country.flags.png}
-                                    alt={country.name.common}
-                                    className="flag-card"
-                                />
+    useEffect(() => {
+        axios
+            .get("https://restcountries.com/v3.1/all")
+            .then((res) => setData(res.data));
+    }, []);
 
-                                <div className="country-info-card">
-                                    <h3>{country.name.common}</h3>
-                                    <p>
-                                        <span className="info-title">
-                                            Population:{" "}
-                                        </span>
-                                        {country.population}
-                                    </p>
-                                    <p>
-                                        <span className="info-title">
-                                            Region:{" "}
-                                        </span>
-                                        {country.region}
-                                    </p>
-                                    <p>
-                                        <span className="info-title">
-                                            Capital:{" "}
-                                        </span>
-                                        {country.capital && country.capital[0]}
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </div>
-        );
-    }
+    return (
+        <div className="card-display">
+            {data
 
+                // .filter((country) =>
+                //     country.continents[0].includes(selectedContinent)
+                // )
+                // .filter((country) =>
+                //     country.translations.fra.common
+                //         .toLowerCase()
+                //         .includes(search.toLowerCase())
+                // )
+                .map((country, index) => (
+                    <CountryCard key={index} country={country} />
+                ))}
+        </div>
+    );
+};
 
 CountryGrid.propTypes = {
-    countries : PropTypes.arrayOf(
-        PropTypes.shape({
-            cca3: PropTypes.string,
-            name: PropTypes.shape({
-                common: PropTypes.string,
-            }),
-            flags: PropTypes.shape({
-                png: PropTypes.string,
-            }),
-            population: PropTypes.int,
-            region: PropTypes.string,
-            capital: PropTypes.arrayOf(PropTypes.string),
-    })
-)}
+    country: PropTypes.shape({
+        cca3: PropTypes.string,
+        name: PropTypes.shape({
+            common: PropTypes.string,
+        }),
+        flags: PropTypes.shape({
+            png: PropTypes.string,
+        }),
+        population: PropTypes.number,
+        region: PropTypes.string,
+        capital: PropTypes.arrayOf(PropTypes.string),
+    }),
+};
 
 export default CountryGrid;
