@@ -1,30 +1,7 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from 'prop-types';
 
-class CountryGrid extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: null,
-        };
-    }
-
-    componentDidMount() {
-        const { countries } = this.props;
-
-        if (!countries || !Array.isArray(countries)) {
-            console.error("Invalid countries data:");
-            return null;
-        }
-    }
-
-    render() {
-        const { countries } = this.props;
-
-        if (!countries) {
-            console.error("Countries prop is undefined.");
-            return null;
-        }
+const CountryGrid = ({countries}) => {
 
         return (
             <div className="card-display">
@@ -68,6 +45,22 @@ class CountryGrid extends Component {
             </div>
         );
     }
-}
+
+
+CountryGrid.propTypes = {
+    countries : PropTypes.arrayOf(
+        PropTypes.shape({
+            cca3: PropTypes.string,
+            name: PropTypes.shape({
+                common: PropTypes.string,
+            }),
+            flags: PropTypes.shape({
+                png: PropTypes.string,
+            }),
+            population: PropTypes.int,
+            region: PropTypes.string,
+            capital: PropTypes.arrayOf(PropTypes.string),
+    })
+)}
 
 export default CountryGrid;

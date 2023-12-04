@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { SearchList } from "./SearchList.jsx";
-import Scroll from "./Scroll.jsx";
+import { PropTypes } from 'prop-types';
 
 class Search extends Component {
     constructor(props) {
@@ -14,9 +14,7 @@ class Search extends Component {
         const { searchField } = this.state;
 
         return (
-            <Scroll>
                 <SearchList filteredCountries={this.filterCountries()} />
-            </Scroll>
         );
     }
 
@@ -60,6 +58,10 @@ class Search extends Component {
             </div>
         );
     }
+}
+
+Search.propTypes = {
+    countries : PropTypes.array,
 }
 
 export default Search;

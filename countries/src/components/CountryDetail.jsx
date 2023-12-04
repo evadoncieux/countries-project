@@ -1,32 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";  // Import PropTypes
-import {useParams} from "react-router-dom";
+import PropTypes from "prop-types";
 
 const CountryDetail = ({country}) => {
-	const {countryName} = useParams();
 
-	if (!country) {
-		return <div>Country not found</div>;
-	}
-
-	const {languages, currencies, borders} = country;
+	const { cca3, name, flags, population, region, capital, languages, currencies, borders, subregion, tld } = country;
 	const languageNames = languages
 		? Object.keys(languages).map((language) => language)
 		: [];
 
 	return (
 		<div className="wrapper-detail">
-			<div key={country.cca3} className="country-detail">
+			<div key={cca3} className="country-detail">
 				<div className="left">
 					<img
-						src={country.flags.png}
-						alt={country.name.common}
+						src={flags.png}
+						alt={name.common}
 						className="flag-detail"
 					/>
 				</div>
 
 				<div className="right">
-					<h3>{country.name.common}</h3>
+					<h3>{name.common}</h3>
 					<div className="country-info-detail">
 						<div className="col-left">
 							<p>
@@ -36,31 +29,31 @@ const CountryDetail = ({country}) => {
                                         (à remplacer par le bon){" "}
                                     </span>
                                 </span>
-								{country.name.common}
+								{name.common}
 							</p>
 							<p>
                                         <span className="info-title">
                                             Population:{" "}
                                         </span>
-								{country.population}
+								{population}
 							</p>
 							<p>
                                         <span className="info-title">
                                             Region:{" "}
                                         </span>
-								{country.region}
+								{region}
 							</p>
 							<p>
                                         <span className="info-title">
                                             Sub Region:{" "}
                                         </span>
-								{country.subregion}
+								{subregion}
 							</p>
 							<p>
                                         <span className="info-title">
                                             Capital:{" "}
                                         </span>
-								{country.capital && country.capital[0]}
+								{capital && capital[0]}
 							</p>
 						</div>
 						<div className="col-right">
@@ -68,15 +61,15 @@ const CountryDetail = ({country}) => {
                                         <span className="info-title">
                                             Top Level Domain:{" "}
                                         </span>
-								{country.tld}
+								{tld}
 							</p>
 							<p>
                                         <span className="info-title">
                                             Currencies:{" "}
                                         </span>
-								{country.currencies &&
+								{currencies &&
 									Object.values(
-										country.currencies
+										currencies
 									).map((currency, index) => (
 										<span key={index}>
                                                     {currency.name},{" "}
@@ -95,6 +88,8 @@ const CountryDetail = ({country}) => {
 								)}
 							</p>
 						</div>
+
+						{/* if landlocked = true, search for bordering countries */}
 						<div>
                             <span className="info-title">
                                 Border country:{" "}
@@ -102,9 +97,9 @@ const CountryDetail = ({country}) => {
                                     (à remplacer par les noms de pays)
                                 </span>
                             </span>
-							{country.borders ? (
+							{borders ? (
 								<ul className="borders-list">
-									{country.borders.map(
+									{borders.map(
 										(border, index) => (
 											<li key={index}>
 												{border}
@@ -126,19 +121,19 @@ const CountryDetail = ({country}) => {
 
 CountryDetail.propTypes = {
 	country: PropTypes.shape({
+		cca3: PropTypes.string,
 		name: PropTypes.shape({
 			common: PropTypes.string,
 			official: PropTypes.string,
 			nativeName: PropTypes.shape({
 				common: PropTypes.string,
 				official: PropTypes.string,
-				// Add more specific nativeName properties if needed
 			}),
 		}),
 		flags: PropTypes.shape({
 			png: PropTypes.string,
-			// Add more flag properties if needed
 		}),
+//      flags: PropTypes.arrayOf(PropTypes.string),
 		region: PropTypes.string,
 		subregion: PropTypes.string,
 		population: PropTypes.number,
@@ -155,11 +150,9 @@ CountryDetail.propTypes = {
 			PropTypes.shape({
 				name: PropTypes.string,
 				nativeName: PropTypes.string,
-				// Add more specific language properties if needed
 			})
 		),
 		borders: PropTypes.arrayOf(PropTypes.string),
-		// Add more properties as needed
 	}),
 };
 

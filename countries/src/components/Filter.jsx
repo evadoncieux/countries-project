@@ -6,4 +6,5 @@ const Filter = () => {
     );
 };
 
+// ajouter la liste des continents à la mano dans une const pour faire le filtre
 export { Filter };

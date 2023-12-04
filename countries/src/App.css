@@ -26,6 +26,10 @@ p {
   font-size: 14px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .todo {
   color: red;
   font-size: 0.8rem;
