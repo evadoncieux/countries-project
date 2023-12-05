@@ -18,7 +18,8 @@
 }
 
 body {
-  background-color: var(--very-dark-blue-bg);
+  /* background-color: var(--very-dark-blue-bg); */
+  background-color: var(--white);
 }
 
 p {
@@ -128,7 +129,8 @@ a {
   border-radius: 0 0 5px 5px;
   margin: 1rem;
   gap: 1rem;
-  background-color: var(--dark-blue);
+  /* background-color: var(--dark-blue); */
+   background-color: var(--white);
 }
 
 .info-title {

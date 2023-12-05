@@ -1,32 +1,40 @@
 import axios from "axios";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import CountryCard from "./CountryCard.jsx";
 
 const CountryGrid = () => {
     const [data, setData] = useState([]);
+    const [loader, setLoader] = useState(false);
 
     useEffect(() => {
         axios
             .get("https://restcountries.com/v3.1/all")
             .then((res) => setData(res.data));
+        setLoader(false);
     }, []);
+
+    // function upload() {
+    //     setLoader(true);
+    // }
 
     return (
         <div className="card-display">
-            {data
+            <div className="wrapper-card">
+                {data
 
-                // .filter((country) =>
-                //     country.continents[0].includes(selectedContinent)
-                // )
-                // .filter((country) =>
-                //     country.translations.fra.common
-                //         .toLowerCase()
-                //         .includes(search.toLowerCase())
-                // )
-                .map((country, index) => (
-                    <CountryCard key={index} country={country} />
-                ))}
+                    // .filter((country) =>
+                    //     country.continents[0].includes(selectedContinent)
+                    // )
+                    // .filter((country) =>
+                    //     country.translations.fra.common
+                    //         .toLowerCase()
+                    //         .includes(search.toLowerCase())
+                    // )
+                    .map((country, index) => (
+                        <CountryCard key={index} country={country} />
+                    ))}
+            </div>
         </div>
     );
 };

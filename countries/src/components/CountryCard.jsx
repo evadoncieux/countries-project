@@ -16,15 +16,15 @@ const CountryCard = ({ country }) => {
                 <div className="country-info-card">
                     <h3>{country.name.common}</h3>
                     <p>
-                        <span className="info-title">Population: </span>
+                        <span className="info-title">Population : </span>
                         {country.population}
                     </p>
                     <p>
-                        <span className="info-title">Region: </span>
+                        <span className="info-title">Region : </span>
                         {country.region}
                     </p>
                     <p>
-                        <span className="info-title">Capital: </span>
+                        <span className="info-title">Capital : </span>
                         {country.capital && country.capital[0]}
                     </p>
                 </div>
