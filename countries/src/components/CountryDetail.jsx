@@ -1,6 +1,40 @@
 import PropTypes from "prop-types";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
 
 const CountryDetail = ({ country }) => {
+    const { countryCode } = useParams();
+    console.log(countryCode);
+
+    const [countryData, setCountryData] = useState({});
+
+    const fetchCountryData = useCallback(() => {
+        async () => {
+            const url =
+                "https://restcountries.com/v3.1/alpha/" + countryCode + "?fields=name";
+            try {
+                // https://restcountries.com/v3.1/alpha/irq?fields=name
+                const response = await fetch(url);
+                const data = await response.json();
+
+                console.log(url);
+                console.log(data[0]);
+
+                setCountryData(data[0]);
+            } catch (error) {
+                console.error("Error fetching country data:", error);
+            }
+        };
+    }, [countryCode]);
+
+    useEffect(() => {
+        fetchCountryData();
+    }, [fetchCountryData]);
+
+    if (!countryData) {
+        return <p>Loading...</p>;
+    }
+
     const {
         cca3,
         name,
@@ -14,101 +48,98 @@ const CountryDetail = ({ country }) => {
         subregion,
         tld,
     } = country;
-    
+
     const languageNames = languages
         ? Object.keys(languages).map((language) => language)
-        : [];ç
+        : [];
 
     return (
-        <div className="wrapper-detail">
-            <div key={cca3} className="country-detail">
-                <div className="left">
-                    <img
-                        src={flags.png}
-                        alt={name.common}
-                        className="flag-detail"
-                    />
-                </div>
-
-                <div className="right">
-                    <h3>{name.common}</h3>
-                    <div className="country-info-detail">
-                        <div className="col-left">
-                            <p>
-                                <span className="info-title">
-                                    Native Name:{" "}
-                                    <span className="todo">
-                                        (à remplacer par le bon){" "}
-                                    </span>
-                                </span>
-                                {name.common}
-                            </p>
-                            <p>
-                                <span className="info-title">Population: </span>
-                                {population}
-                            </p>
-                            <p>
-                                <span className="info-title">Region: </span>
-                                {region}
-                            </p>
-                            <p>
-                                <span className="info-title">Sub Region: </span>
-                                {subregion}
-                            </p>
-                            <p>
-                                <span className="info-title">Capital: </span>
-                                {capital && capital[0]}
-                            </p>
+                <div className="wrapper-detail">
+                    <div key={cca3} className="country-detail">
+                        <div className="left">
+                            <img src={flags?.png} alt={name} className="flag-detail" />
                         </div>
-                        <div className="col-right">
-                            <p>
-                                <span className="info-title">
-                                    Top Level Domain:{" "}
-                                </span>
-                                {tld}
-                            </p>
-                            <p>
-                                <span className="info-title">Currencies: </span>
-                                {currencies &&
-                                    Object.values(currencies).map(
-                                        (currency, index) => (
-                                            <span key={index}>
-                                                {currency.name},{" "}
+        
+                        <div className="right">
+                            <h3>{name.common}</h3>
+                            <div className="country-info-detail">
+                                <div className="col-left">
+                                    <p>
+                                        <span className="info-title">
+                                            Native Name:{" "}
+                                            <span className="todo">
+                                                (à remplacer par le bon){" "}
                                             </span>
-                                        )
+                                        </span>
+                                        {name.common}
+                                    </p>
+                                    <p>
+                                        <span className="info-title">Population: </span>
+                                        {population}
+                                    </p>
+                                    <p>
+                                        <span className="info-title">Region: </span>
+                                        {region}
+                                    </p>
+                                    <p>
+                                        <span className="info-title">Sub Region: </span>
+                                        {subregion}
+                                    </p>
+                                    <p>
+                                        <span className="info-title">Capital: </span>
+                                        {capital && capital[0]}
+                                    </p>
+                                </div>
+                                <div className="col-right">
+                                    <p>
+                                        <span className="info-title">
+                                            Top Level Domain:{" "}
+                                        </span>
+                                        {tld}
+                                    </p>
+                                    <p>
+                                        <span className="info-title">Currencies: </span>
+                                        {currencies &&
+                                            Object.values(currencies).map(
+                                                (currency, index) => (
+                                                    <span key={index}>
+                                                        {currency.name},{" "}
+                                                    </span>
+                                                )
+                                            )}
+                                    </p>
+        
+                                    <p>
+                                        <span className="info-title">Languages: </span>
+                                        {languageNames.map((language, index) => (
+                                            <li key={index}>{language}</li>
+                                        ))}
+                                    </p>
+                                </div>
+        
+                                {/* if landlocked = true, search for bordering countries */}
+                                <div>
+                                    <span className="info-title">
+                                        Border country:{" "}
+                                        <span className="todo">
+                                            (à remplacer par les noms de pays)
+                                        </span>
+                                    </span>
+                                    {borders ? (
+                                        <ul className="borders-list">
+                                            {borders.map((border, index) => (
+                                                <li key={index}>{border}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>No border country available</p>
                                     )}
-                            </p>
-
-                            <p>
-                                <span className="info-title">Languages: </span>
-                                {languageNames.map((language, index) => (
-                                    <li key={index}>{language}</li>
-                                ))}
-                            </p>
-                        </div>
-
-                        {/* if landlocked = true, search for bordering countries */}
-                        <div>
-                            <span className="info-title">
-                                Border country:{" "}
-                                <span className="todo">
-                                    (à remplacer par les noms de pays)
-                                </span>
-                            </span>
-                            {borders ? (
-                                <ul className="borders-list">
-                                    {borders.map((border, index) => (
-                                        <li key={index}>{border}</li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No border country available</p>
-                            )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+        // <div></div>
     );
 };
 

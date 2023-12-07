@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 
 const CountryCard = ({ country }) => {
     return (
-        <Link
-            key={country.cca3}
-            to={`/details/${country.name.common.split(" ").join("-")}`}>
+        <Link key={country.cca3} to={`/details/${country.cca3.toLowerCase()}`}>
             <div key={country.cca3} className="country-card">
                 <img
                     src={country.flags.png}

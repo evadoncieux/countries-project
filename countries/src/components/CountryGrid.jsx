@@ -1,28 +1,35 @@
-import axios from "axios";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import CountryCard from "./CountryCard.jsx";
 
 const CountryGrid = () => {
     const [data, setData] = useState([]);
-    const [loader, setLoader] = useState(false);
 
-    useEffect(() => {
-        axios
-            .get("https://restcountries.com/v3.1/all")
-            .then((res) => setData(res.data));
-        setLoader(false);
-    }, []);
+        const fetchCountryData = useCallback(async () => {
+            try {
+                const response = await fetch(
+                    `https://restcountries.com/v3.1/all`
+                );
+                const data = await response.json();
+                setData(data);
+            } catch (error) {
+                console.error("Error fetching country data:", error);
+            }
+        }, []);
 
-    // function upload() {
-    //     setLoader(true);
-    // }
+        useEffect(() => {
+            fetchCountryData();
+        }, [fetchCountryData]);
+
+
+    if (!data) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className="card-display">
             <div className="wrapper-card">
                 {data
-
                     // .filter((country) =>
                     //     country.continents[0].includes(selectedContinent)
                     // )
